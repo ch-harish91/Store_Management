@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_28_083027) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_30_053214) do
   create_table "addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "area"
     t.string "city"
@@ -21,9 +21,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_28_083027) do
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
+  create_table "ratings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.decimal "rating_value", precision: 10
+    t.bigint "store_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_ratings_on_store_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
   create_table "roles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
-    t.text "description"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.text "address"
+    t.decimal "overall_rating", precision: 10
+    t.decimal "my_rating", precision: 10
+    t.boolean "submit_rating_option"
+    t.boolean "modify_rating_option"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,5 +60,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_28_083027) do
   end
 
   add_foreign_key "addresses", "users"
+  add_foreign_key "ratings", "stores"
+  add_foreign_key "ratings", "users"
   add_foreign_key "users", "roles"
 end
