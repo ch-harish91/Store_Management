@@ -31,6 +31,9 @@ gem 'dotenv-rails', groups: %i[development test]
 # For non-Rails Ruby projects
 gem 'dotenv'
 
+gem 'bootstrap', '~> 5.3.0'
+gem 'sassc-rails'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

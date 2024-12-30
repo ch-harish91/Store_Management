@@ -1,0 +1,30 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Overall Rating</th>
+      <th>My Rating</th>
+      <th>Submit Rating Option</th>
+      <th>Modify Rating Option</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @stores.present? %> <!-- Check if @stores is not empty -->
+      <% @stores.each do |store| %>
+        <tr>
+          <td><%= store.name %></td>
+          <td><%= store.address %></td>
+          <td><%= store.overall_rating %></td>
+          <td><%= store.my_rating %></td>
+          <td><%= store.submit_rating_option ? 'Yes' : 'No' %></td>
+          <td><%= store.modify_rating_option ? 'Yes' : 'No' %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="6">No stores available.</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

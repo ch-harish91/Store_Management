@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  address: MyText
+  overall_rating: 9.99
+  my_rating: 9.99
+  submit_rating_option: false
+  modify_rating_option: false
+
+two:
+  name: MyString
+  address: MyText
+  overall_rating: 9.99
+  my_rating: 9.99
+  submit_rating_option: false
+  modify_rating_option: false
