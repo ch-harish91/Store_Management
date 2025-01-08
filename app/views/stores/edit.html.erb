@@ -1,0 +1,64 @@
+<!-- app/views/stores/edit.html.erb -->
+
+<div class="container text-center">
+  <h1 class="mb-4">Edit Store</h1>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <%= form_with(model: @store, local: true) do |form| %>
+            <% if @store.errors.any? %>
+              <div class="alert alert-danger">
+                <ul>
+                  <% @store.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.text_field :name, class: "form-control", required: true %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :address, class: "form-label" %>
+              <%= form.text_field :address, class: "form-control", required: true %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :overall_rating, class: "form-label" %>
+              <%= form.number_field :overall_rating, class: "form-control", required: true %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :my_rating, class: "form-label" %>
+              <%= form.number_field :my_rating, class: "form-control", required: true %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :submit_rating_option, class: "form-label" %>
+              <%= form.check_box :submit_rating_option %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :modify_rating_option, class: "form-label" %>
+              <%= form.check_box :modify_rating_option %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.submit 'Update Store', class: "btn btn-success btn-block" %>
+            </div>
+          <% end %>
+
+          <%= link_to 'Back', stores_path, class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

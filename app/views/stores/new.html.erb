@@ -1,10 +1,7 @@
-<!-- app/views/stores/new.html.erb -->
-
-<h1 class="text-center my-4">Create New Store</h1>
-
 <div class="container">
   <%= form_with(model: @store, local: true, class: "needs-validation", novalidate: true) do |form| %>
-    <% if @user.errors.any? %>
+    
+    <% if @store.errors.any? %>
       <div class="alert alert-danger">
         <ul>
           <% @store.errors.full_messages.each do |message| %>
@@ -14,23 +11,20 @@
       </div>
     <% end %>
 
-    <div class="form-group mb-3">
+    <!-- Form fields -->
+    <div class="mb-3">
       <%= form.label :name, class: "form-label" %>
-      <%= form.text_field :name, class: "form-control", required: true, placeholder: "Store Name" %>
+      <%= form.text_field :name, class: "form-control", required: true %>
     </div>
 
-    <div class="form-group mb-3">
+    <div class="mb-3">
       <%= form.label :description, class: "form-label" %>
-      <%= form.text_area :description, class: "form-control", rows: 4, placeholder: "Store Description" %>
+      <%= form.text_area :description, class: "form-control", required: true %>
     </div>
 
-    <div class="form-group mb-3">
-      <%= form.label :price, class: "form-label" %>
-      <%= form.number_field :price, step: "0.01", class: "form-control", required: true, placeholder: "Price" %>
-    </div>
-
-    <div class="form-group text-center">
+    <div>
       <%= form.submit "Create Store", class: "btn btn-primary" %>
     </div>
+
   <% end %>
 </div>

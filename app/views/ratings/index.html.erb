@@ -1,0 +1,19 @@
+<h1>Ratings List</h1>
+
+<% @ratings.each do |rating| %>
+  <p>
+    <strong>Rating Value:</strong>
+    <%= rating.rating_value %>
+  </p>
+
+  <p>
+    <strong>Store ID:</strong>
+    <%= rating.store_id %>
+  </p>
+
+  <p>
+    <strong>User ID:</strong>
+    <%= rating.user_id %>
+  </p>
+  <hr>
+<% end %>

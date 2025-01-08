@@ -1,47 +1,46 @@
 class StoresController < ApplicationController
   skip_before_action :verify_authenticity_token, only: %i[create update destroy]
   before_action :set_store, only: %i[show edit update destroy]
-
   def index
-    stores = Store.all
-    render json: stores
-  end
-
-  def show
-    render json: @store
-  end
-
-  def new
-    store = Store.new
-    render json: store
-  end
-
-  def create
-    store = Store.new(store_params)
-    if store.save
-      render json: store, status: :created, location: store
+    if params[:query].present?
+      @stores = Store.where("name LIKE ?", "%#{params[:query]}%")
     else
-      render json: { errors: store.errors.full_messages }, status: :unprocessable_entity
+      @stores = Store.all
     end
   end
 
-  def edit
-    render json: @store
+  def show; end
+
+  def new
+    @store = Store.new
   end
+
+  def create
+    @store = Store.new(store_params)
+    if @store.save
+      redirect_to store_path(@store), notice: 'Store was successfully created.'
+    else
+      flash.now[:alert] = 'Failed to create store. Please fix the errors below.'
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit; end
 
   def update
     if @store.update(store_params)
-      render json: @store
+      redirect_to store_path(@store), notice: 'Store was successfully updated.'
     else
-      render json: { errors: @store.errors.full_messages }, status: :unprocessable_entity
+      flash.now[:alert] = 'Failed to update store. Please fix the errors below.'
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     if @store.destroy
-      render json: { message: 'Store successfully deleted', store: @store }, status: :ok
+      redirect_to stores_path, notice: 'Store was successfully deleted.'
     else
-      render json: { error: 'Failed to delete store' }, status: :unprocessable_entity
+      redirect_to stores_path, alert: 'Failed to delete store.'
     end
   end
 
@@ -51,7 +50,7 @@ class StoresController < ApplicationController
     @store = Store.find_by(id: params[:id])
     return if @store
 
-    render json: { error: 'Store not found' }, status: :not_found
+    redirect_to stores_path, alert: 'Store not found.'
   end
 
   def store_params
