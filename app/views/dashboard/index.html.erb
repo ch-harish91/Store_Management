@@ -60,7 +60,7 @@
           <tr>
             <td><%= user.name %></td>
             <td><%= user.email %></td>
-            <td><%= user.role %></td>
+            <td class="text-primary"><%= user.role&.name&.split('_').map(&:capitalize).join(' ') %></td>
             <td>
               <%# Add Assign Role as Store Admin link for users %>
               <%= link_to 'Assign as Store Admin', assign_store_admin_dashboard_path(user_id: user.id, store_id: @stores.first.id), method: :post, class: 'btn btn-warning' %>
