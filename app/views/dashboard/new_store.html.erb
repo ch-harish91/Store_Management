@@ -1,0 +1,28 @@
+<h2>Create New Store</h2>
+
+<%= form_with model: @store, url: create_dashboard_store_path do |form| %>
+  
+  <!-- Store Name Field -->
+  <div class="mb-3 mt-3">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <!-- Store Address Field -->
+  <div class="mb-3 mt-3">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+  <!-- Store Description Field -->
+  <div class="mb-3 mt-3">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <!-- Buttons -->
+  <div class="container text-center">
+    <%= form.submit 'Create Store' %>
+    <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
+  </div>
+<% end %>

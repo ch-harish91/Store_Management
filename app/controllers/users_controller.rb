@@ -1,19 +1,14 @@
 class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[create update destroy]
   before_action :set_user, only: %i[show update edit destroy]
 
   def index
     @users = User.all
-    # Render the index view (no need to return JSON)
   end
 
-  def show
-    # Render the show view
-  end
+  def show; end
 
   def new
     @user = User.new
-    # Render the new view (no need to return JSON)
   end
 
   def create
@@ -26,9 +21,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    # Ensure @user is set in before_action
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)
@@ -62,4 +55,3 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end
-

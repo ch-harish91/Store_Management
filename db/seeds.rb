@@ -10,3 +10,6 @@
 Role.find_or_create_by(name: 'system_admin', description: 'Has full access to the system')
 Role.find_or_create_by(name: 'normal_user', description: 'Can browse and use basic features')
 Role.find_or_create_by(name: 'store_owner', description: 'Can manage their own store')
+
+# User.find_or_create_by(name: "system_admin", email: "system_admin@gmail.com")
+

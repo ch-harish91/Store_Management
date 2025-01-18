@@ -1,2 +1,87 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
+<%# dashboard/index.html.erb %>
+
+<div class="container">
+  <h1>Dashboard</h1>
+<% if role == "system_admin" || role == "store_owner" %>
+    <div class="tabs">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a id="stores-tab" class="nav-link <%= 'active' if params[:tab] == 'stores' %>" href="<%= dashboard_path(tab: 'stores') %>">Stores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if params[:tab] == 'users' %>" href="<%= dashboard_path(tab: 'users') %>">Users</a>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if params[:tab] == 'stores' %>
+    <h2>Stores</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Store Name</th>
+          <th>Description</th>
+          <th>Store Admin</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @stores.each do |store| %>
+          <tr>
+            <td><%= store.name %></td>
+            <td><%= store.description %></td>
+            <td>
+              <% store_admin = User.find_by(role: 'store_admin', store_id: store.id) %>
+              <%= store_admin ? store_admin.name : 'Not Assigned' %>
+            </td>
+            <td>
+              <%= link_to 'Edit', edit_store_path(store), class: 'btn btn-primary' %>
+              <%= link_to 'Delete', store_path(store), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+              <%# Add more actions if necessary %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% elsif params[:tab] == 'users' %>
+    <h2>Users</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td>
+              <%# Add Assign Role as Store Admin link for users %>
+              <%= link_to 'Assign as Store Admin', assign_store_admin_dashboard_path(user_id: user.id, store_id: @stores.first.id), method: :post, class: 'btn btn-warning' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h2>Please select a tab to view the content.</h2>
+  <% end %>
+</div>
+
+<script>
+  console.log("****************************")
+  document.addEventListener('DOMContentLoaded', function() {
+    // Simulate a click on the "Stores" link
+    const storesTab = document.getElementById('stores-tab');
+    if (storesTab) {
+      storesTab.click();
+    }
+  });
+</script>
+

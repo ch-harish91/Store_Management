@@ -1,12 +1,14 @@
 class StoresController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[create update destroy]
+  # skip_before_action :verify_authenticity_token, only: %i[create update destroy]
+  before_action :authenticate_user
   before_action :set_store, only: %i[show edit update destroy]
+
   def index
-    if params[:query].present?
-      @stores = Store.where("name LIKE ?", "%#{params[:query]}%")
-    else
-      @stores = Store.all
-    end
+    @stores = if params[:query].present?
+                Store.where('name LIKE ?', "%#{params[:query]}%")
+              else
+                Store.all
+              end
   end
 
   def show; end
@@ -41,6 +43,18 @@ class StoresController < ApplicationController
       redirect_to stores_path, notice: 'Store was successfully deleted.'
     else
       redirect_to stores_path, alert: 'Failed to delete store.'
+    end
+  end
+
+  def update_rating
+    @store = Store.find(params[:id])
+
+    # Find or initialize the rating for the store
+    @rating = Rating.find_or_initialize_by(store_id: @store.id)
+
+    # Update the rating with the provided value
+    if @rating.update(rating_value: params[:rating], user_id: current_user.id)
+      redirect_to stores_path
     end
   end
 
