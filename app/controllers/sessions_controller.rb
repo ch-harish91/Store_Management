@@ -52,3 +52,4 @@ class SessionsController < ApplicationController
     user_params
   end
 end
+

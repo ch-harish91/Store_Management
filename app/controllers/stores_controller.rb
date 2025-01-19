@@ -69,3 +69,4 @@ class StoresController < ApplicationController
                                   :modify_rating_option)
   end
 end
+
