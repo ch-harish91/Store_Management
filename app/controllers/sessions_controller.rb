@@ -38,16 +38,14 @@ class SessionsController < ApplicationController
   private
 
   def register_params
-    # Permitting the role as well as the other user attributes
     user_params = params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
 
-    # Ensure the role is properly assigned by finding the role by name and saving the role_id
     if user_params[:role].present?
       role = Role.find_by(name: user_params[:role])
       if role
-        user_params[:role_id] = role.id # Assign role_id to user_params, not the role object
+        user_params[:role_id] = role.id
       else
-        user_params.delete(:role) # Handle case where role is not found (optional: you could handle it differently)
+        user_params.delete(:role)
       end
     end
 

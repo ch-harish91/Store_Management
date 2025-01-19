@@ -8,7 +8,6 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  # validates :role, presence: true, inclusion: { in: %w[user admin], message: '%<value>s is not a valid role' }
 
   before_validation :set_default_role
 

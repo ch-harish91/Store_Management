@@ -1,5 +1,4 @@
 class StoresController < ApplicationController
-  # skip_before_action :verify_authenticity_token, only: %i[create update destroy]
   before_action :authenticate_user
   before_action :set_store, only: %i[show edit update destroy]
 
@@ -49,13 +48,11 @@ class StoresController < ApplicationController
   def update_rating
     @store = Store.find(params[:id])
 
-    # Find or initialize the rating for the store
     @rating = Rating.find_or_initialize_by(store_id: @store.id)
 
-    # Update the rating with the provided value
-    if @rating.update(rating_value: params[:rating], user_id: current_user.id)
-      redirect_to stores_path
-    end
+    return unless @rating.update(rating_value: params[:rating], user_id: current_user.id)
+
+    redirect_to stores_path
   end
 
   private

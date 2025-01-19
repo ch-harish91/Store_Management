@@ -2,15 +2,15 @@
   <h1>STORES</h1>
 </div>
 
-<!-- Search Form -->
+
 <div class="d-flex justify-content-end mb-3">
   <%= form_with url: stores_path, method: :get, local: true, class: 'd-flex me-3' do |f| %>
     <%= f.text_field :query, placeholder: "Search stores...", class: 'form-control me-2' %>
     <%= f.submit 'Search', class: 'btn btn-outline-secondary' %>
   <% end %>
 
-  <!-- New Store Button -->
-  <%#= link_to 'New Store', new_store_path, class: 'btn btn-primary' %>
+  
+  
 </div>
 
 <div class="p-3">
@@ -18,7 +18,7 @@
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <%# @stores.first.attributes.keys.each do |attribute| %>
+          
           <th>ID</th>
           <th>Name </th>
           <th>Address</th>

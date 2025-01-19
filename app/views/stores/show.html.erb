@@ -2,15 +2,14 @@
   <h1>STORES</h1>
 </div>
 
-<!-- Search Form -->
 <div class="d-flex justify-content-between align-items-center mb-3">
-  <!-- Search Form -->
+  
   <%= form_with url: stores_path, method: :get, local: true, class: 'd-flex' do |f| %>
     <%= f.text_field :query, placeholder: "Search anything...", class: 'form-control me-2' %>
     <%= f.submit 'Search', class: 'btn btn-outline-secondary' %>
   <% end %>
 
-  <!-- New Store Button -->
+  
   <%= link_to 'New Store', new_store_path, class: 'btn btn-primary' %>
 </div>
 
@@ -33,13 +32,11 @@
             <% end %>
             <td>
               <div class="d-flex">
-                <!-- Show Button -->
+                
                 <%= link_to 'Show', store_path(store), class: 'btn btn-sm btn-info me-2' %>
 
-                <!-- Edit Button -->
                 <%= link_to 'Edit', edit_store_path(store), class: 'btn btn-sm btn-warning me-2' %>
 
-                <!-- Delete Button -->
                 <%= link_to 'Delete', store_path(store), 
                   method: :delete, 
                   data: { confirm: 'Are you sure you want to delete this store?' }, 
