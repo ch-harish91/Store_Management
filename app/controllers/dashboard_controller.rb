@@ -8,11 +8,16 @@ class DashboardController < ApplicationController
     if role == 'system_admin'
       @stores = Store.all
       @users = User.all
+      @store_count = @stores.count
+      @user_count = @users.count
     end
+
     if role == 'store_owner'
       @stores = Store.where(store_owner: current_user.id)
       store_users = Rating.where(store_id: @stores.pluck(:id)).pluck(:user_id).compact
       @users = User.where(id: store_users)
+      @store_count = @stores.count
+      @user_count = @users.count
     end
 
     params[:tab] ||= 'stores'

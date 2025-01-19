@@ -1,15 +1,17 @@
-<%# dashboard/index.html.erb %>
-
 <div class="container">
   <h1>Dashboard</h1>
-<% if role == "system_admin" || role == "store_owner" %>
+  <% if role == "system_admin" || role == "store_owner" %>
     <div class="tabs">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a id="stores-tab" class="nav-link <%= 'active' if params[:tab] == 'stores' %>" href="<%= dashboard_path(tab: 'stores') %>">Stores</a>
+          <a id="stores-tab" class="nav-link <%= 'active' if params[:tab] == 'stores' %>" href="<%= dashboard_path(tab: 'stores') %>">
+            Stores (<%= @store_count %>)
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%= 'active' if params[:tab] == 'users' %>" href="<%= dashboard_path(tab: 'users') %>">Users</a>
+          <a class="nav-link <%= 'active' if params[:tab] == 'users' %>" href="<%= dashboard_path(tab: 'users') %>">
+            Users (<%= @user_count %>)
+          </a>
         </li>
       </ul>
     </div>
@@ -38,7 +40,6 @@
             <td>
               <%= link_to 'Edit', edit_store_path(store), class: 'btn btn-primary' %>
               <%= link_to 'Delete', store_path(store), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-              <%# Add more actions if necessary %>
             </td>
           </tr>
         <% end %>
@@ -62,7 +63,6 @@
             <td><%= user.email %></td>
             <td class="text-primary"><%= user.role&.name&.split('_').map(&:capitalize).join(' ') %></td>
             <td>
-              <%# Add Assign Role as Store Admin link for users %>
               <%= link_to 'Assign as Store Admin', assign_store_admin_dashboard_path(user_id: user.id, store_id: @stores.first.id), method: :post, class: 'btn btn-warning' %>
             </td>
           </tr>
@@ -75,13 +75,10 @@
 </div>
 
 <script>
-  console.log("****************************")
   document.addEventListener('DOMContentLoaded', function() {
-    // Simulate a click on the "Stores" link
     const storesTab = document.getElementById('stores-tab');
     if (storesTab) {
       storesTab.click();
     }
   });
 </script>
-
