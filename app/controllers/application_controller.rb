@@ -17,4 +17,3 @@ class ApplicationController < ActionController::Base
     current_user.role.name
   end
 end
-
