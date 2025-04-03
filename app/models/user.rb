@@ -6,8 +6,9 @@ class User < ApplicationRecord
   has_many :stores
   belongs_to :role
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 7, maximum: 60 }
   validates :email, presence: true, uniqueness: true
+  validates :password, length: { minimum: 5, maximum: 16 }
 
   before_validation :set_default_role
 
@@ -21,3 +22,4 @@ class User < ApplicationRecord
     Role.find_by_name('normal_user').id || 1
   end
 end
+
